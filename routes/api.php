@@ -14,8 +14,10 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-   echo 'Silence is golden';
+   return 'Silence is golden';
 });
+
+Route::post('/data-fill', 'DataFillController@fill')->name('data.fill');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
