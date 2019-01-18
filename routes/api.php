@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::post('/data-fill', 'DataFillController@fill')->name('data.fill');
+Route::post('register','UsersController@create');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
