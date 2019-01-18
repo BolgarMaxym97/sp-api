@@ -20,6 +20,9 @@ Route::get('/', function () {
 Route::post('/data-fill', 'DataFillController@fill')->name('data.fill');
 Route::post('register','UsersController@create');
 
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('/get-users', 'UsersController@getUsers')->name('users.get');
+});
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
