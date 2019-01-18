@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,13 +14,13 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
    return 'Silence is golden';
 });
+\Illuminate\Support\Facades\Auth::routes();
 
 Route::post('/data-fill', 'DataFillController@fill')->name('data.fill');
-Route::post('register','UsersController@create');
 
+// with token
 Route::group(['middleware' => 'auth:api'], function () {
+
     Route::get('/get-users', 'UsersController@getUsers')->name('users.get');
-});
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
 });
