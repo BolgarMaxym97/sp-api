@@ -22,8 +22,8 @@ class UsersController extends Controller
         $data['password'] = Hash::make($data['password']);
 
         $user = User::create($data);
-        $token = $user->createToken('AppClient');
+        $token = $user->createToken('AppClient')->accessToken;
 
-        return response()->json(['token' => $token], 200);
+        return response()->json(['token' => $token, 'user' => $user], 200);
     }
 }

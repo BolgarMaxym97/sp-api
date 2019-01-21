@@ -12,7 +12,7 @@ class User extends Authenticatable
     use HasApiTokens, Notifiable;
 
     protected $fillable = [
-        'username', 'email', 'password', 'name_first', 'name_last', 'phone'
+        'email', 'password', 'name_first', 'name_last', 'phone'
     ];
 
     protected $hidden = [
@@ -23,12 +23,11 @@ class User extends Authenticatable
     public static function rules(): array
     {
         return [
-            'username' => ['required', 'string', 'max:255'],
             'name_first' => ['required'],
             'name_last' => ['required'],
             'phone' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6']
+            'password' => ['required', 'string', 'min:6', 'confirmed']
         ];
     }
 }
