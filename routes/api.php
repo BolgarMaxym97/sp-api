@@ -14,13 +14,12 @@
 Route::get('/', function () {
    return 'Silence is golden';
 });
-\Illuminate\Support\Facades\Auth::routes();
 
+// without token
+Route::post('/register', 'UsersController@create');
 Route::post('/data-fill', 'DataFillController@fill')->name('data.fill');
 
 // with token
 Route::group(['middleware' => 'auth:api'], function () {
-
     Route::get('/get-users', 'UsersController@getUsers')->name('users.get');
-
 });
