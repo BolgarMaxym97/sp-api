@@ -11,21 +11,24 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'username', 'email', 'password', 'name_first', 'name_last', 'phone'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // TODO: add all rules and translate messages
+    public static function rules(): array
+    {
+        return [
+            'username' => ['required', 'string', 'max:255'],
+            'name_first' => ['required'],
+            'name_last' => ['required'],
+            'phone' => ['required'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6']
+        ];
+    }
 }
