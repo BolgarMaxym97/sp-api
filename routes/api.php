@@ -16,7 +16,8 @@ Route::get('/', function () {
 });
 
 // without token
-Route::post('/register', 'UsersController@create');
+Route::post('/register', 'AuthController@create');
+Route::post('/login', 'AuthController@login');
 Route::post('/data-fill', 'DataFillController@fill')->name('data.fill');
 
 // with token
