@@ -1,0 +1,141 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "description" : "Api for Smart-Plants project",
+    "version" : "1.0.0-oas3",
+    "title" : "Smart-Plants API",
+    "contact" : {
+      "email" : "bolgar.maxym@gmail.com"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags" : [ {
+    "name" : "users",
+    "description" : "Users endpoints"
+  }, {
+    "name" : "data",
+    "description" : "Data endpoints"
+  } ],
+  "paths" : {
+    "/register" : {
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "Create new user",
+        "description" : "Create new user",
+        "responses" : {
+          "200" : {
+            "description" : "token for auth and user info",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "email" : {
+                    "description" : "user email",
+                    "type" : "string"
+                  },
+                  "password" : {
+                    "description" : "user password",
+                    "type" : "string"
+                  },
+                  "password_confirmation" : {
+                    "description" : "user password confirm",
+                    "type" : "string"
+                  },
+                  "name_first" : {
+                    "description" : "user first name",
+                    "type" : "string"
+                  },
+                  "name_last" : {
+                    "description" : "user last name",
+                    "type" : "string"
+                  },
+                  "phone" : {
+                    "description" : "user phone",
+                    "type" : "integer"
+                  }
+                },
+                "required" : [ "email", "password", "password_confirmation", "name_first", "name_last", "phone" ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/oauth/token" : {
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "Get token for login",
+        "description" : "Get token for login",
+        "responses" : {
+          "200" : {
+            "description" : "token for api",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "grant_type" : {
+                    "description" : "password",
+                    "type" : "string",
+                    "example" : "password"
+                  },
+                  "password" : {
+                    "description" : "user password",
+                    "type" : "string"
+                  },
+                  "username" : {
+                    "description" : "user email",
+                    "type" : "string"
+                  },
+                  "client_id" : {
+                    "description" : "4",
+                    "type" : "string",
+                    "example" : "4"
+                  },
+                  "client_secret" : {
+                    "description" : "P66oivsDcOwMqAC5VpOdti3qQBMgfhg4oSyBwSlw",
+                    "type" : "string"
+                  }
+                },
+                "required" : [ "grant_type", "password", "username", "client_id", "client_secret" ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers" : [ {
+    "url" : "http://api.smart-plants.me"
+  } ]
+}
