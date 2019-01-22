@@ -18,7 +18,7 @@ class DataFillController extends Controller
     {
         $requestData = $request->all();
         $created = 0;
-        foreach ($requestData['json'] as $type => $value) {
+        foreach (json_decode($requestData['json']) as $type => $value) {
             $modelData = $requestData;
             $modelData['type'] = $type;
             $modelData['data'] = $value;
