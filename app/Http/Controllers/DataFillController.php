@@ -14,22 +14,25 @@ class DataFillController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function fill(Request $request) : JsonResponse
+    public function fill(Request $request): JsonResponse
     {
         $requestData = $request->all();
         $created = 0;
-        foreach (json_decode($requestData['json']) as $type => $value) {
-            $modelData = $requestData;
-            $modelData['type'] = $type;
-            $modelData['data'] = $value;
-            $model = new Data($modelData);
-            // Todo: delete later
-            $logger = new \App\Helpers\Logger('fill', $modelData);
-            $logger->writeLog();
-            $saved =  $model->save();
-            if ($saved) {
-                $created++;
+        $modelData = $requestData;
+        try {
+            foreach ($requestData['values'] as $type => $value) {
+                $modelData['type'] = $type;
+                $modelData['data'] = $value ?: 0;
+                $model = new Data($modelData);;
+                $saved = $model->save();
+                if ($saved) {
+                    $created++;
+                }
             }
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e,
+            ]);
         }
 
         return response()->json([

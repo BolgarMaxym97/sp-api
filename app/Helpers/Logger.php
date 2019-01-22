@@ -13,6 +13,7 @@ class Logger
     /**
      * Logger constructor.
      * @param $logName
+     * @param $data
      */
     public function __construct($logName, $data)
     {
