@@ -16,10 +16,10 @@ class DataFillController extends Controller
      */
     public function fill(Request $request) : JsonResponse
     {
-        $givenData = $request->all();
+        $requestData = $request->all();
         $created = 0;
-        foreach ($givenData['json'] as $type => $value) {
-            $modelData = $givenData;
+        foreach ($requestData['json'] as $type => $value) {
+            $modelData = $requestData;
             $modelData['type'] = $type;
             $modelData['data'] = $value;
             $model = new Data($modelData);
