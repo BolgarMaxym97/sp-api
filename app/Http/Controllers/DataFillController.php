@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Data;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class DataFillController extends Controller
@@ -13,16 +14,27 @@ class DataFillController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function fill(Request $request)
+    public function fill(Request $request) : JsonResponse
     {
-        $givenData = $request->all();
-        $dataModel = new Data($givenData);
-        // Todo: delete later
-        $logger = new \App\Helpers\Logger('fill', $givenData);
-        $logger->writeLog();
+        $requestData = $request->all();
+        $created = 0;
+        foreach (json_decode($requestData['json']) as $type => $value) {
+            $modelData = $requestData;
+            $modelData['type'] = $type;
+            $modelData['data'] = $value;
+            $model = new Data($modelData);
+            // Todo: delete later
+            $logger = new \App\Helpers\Logger('fill', $modelData);
+            $logger->writeLog();
+            $saved =  $model->save();
+            if ($saved) {
+                $created++;
+            }
+        }
 
         return response()->json([
-            'success' => $dataModel->save()
+            'success' => true,
+            'created' => $created
         ]);
     }
 }
