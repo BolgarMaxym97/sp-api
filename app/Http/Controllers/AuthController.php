@@ -27,7 +27,10 @@ class AuthController extends Controller
     {
         Auth::attempt($request->all());
         $user = Auth::user();
-        $token = $user->createToken('AppClient')->accessToken;
-        return response()->json(['token' => $token, 'user' => $user], 200);
+        $tokenInfo = $user->createToken('AppClient');
+        return response()->json([
+            'token' => ['token' => $tokenInfo->accessToken, 'expires_at' => $tokenInfo->token->expires_at],
+            'user' => $user
+        ]);
     }
 }
