@@ -27,7 +27,7 @@ class User extends Authenticatable
             'name_last' => ['required'],
             'phone' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed']
+            'password' => ['required', 'min:6', 'confirmed']
         ];
     }
 }
