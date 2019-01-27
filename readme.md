@@ -32,3 +32,8 @@ DEPLOYMENT
     ~~~
     php artisan passport:keys
     ~~~
+9. Generate ide-helper file:
+    ~~~
+    php artisan ide-helper:generate
+    php artisan ide-helper:models
+    ~~~

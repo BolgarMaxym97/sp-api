@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AuthController extends Controller
 {
@@ -26,7 +27,10 @@ class AuthController extends Controller
 
     protected function login(Request $request): JsonResponse
     {
-        Auth::attempt($request->all());
+        $authed = Auth::attempt($request->all());
+        if (!$authed) {
+            return response()->json(['messages' => ['Пользователь не найден']], 404);
+        }
         $user = Auth::user();
         $tokenInfo = $user->createToken('AppClient');
         return response()->json([
