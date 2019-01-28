@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class UsersController extends Controller
 {
-    public function getUsers() : Collection
+    public function getCustomers() : Collection
     {
-        return User::all();
+        return User::customers()->get();
     }
 }
