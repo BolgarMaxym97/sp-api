@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Data;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class DataFillController extends Controller
 {
@@ -18,18 +19,20 @@ class DataFillController extends Controller
     {
         $requestData = $request->all();
         $created = 0;
-        $modelData = $requestData;
         try {
-            foreach ($requestData['values'] as $type => $value) {
-                $modelData['type'] = $type;
-                $modelData['data'] = $value ?: 0;
-                $model = new Data($modelData);;
+            foreach ($requestData['values'] as $sensor_id => $value) {
+                $model = $requestData;
+                $keyValueDataArr = $this->buildDataArray($value);
+                $model['type'] = Arr::get($keyValueDataArr, '0', 'undefined');
+                $model['data'] = Arr::get($keyValueDataArr, '1', 0);
+                $model['sensor_id'] = $sensor_id;
+                $model = new Data($model);
                 $saved = $model->save();
                 if ($saved) {
                     $created++;
                 }
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return response()->json([
                 'error' => $e,
             ]);
@@ -39,5 +42,10 @@ class DataFillController extends Controller
             'success' => true,
             'created' => $created
         ]);
+    }
+
+    private function buildDataArray($value)
+    {
+        return [array_keys($value)[0], array_values($value)[0]];
     }
 }
