@@ -47,18 +47,30 @@ use Laravel\Passport\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
+ * @property int $is_customer
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User customers()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereIsCustomer($value)
  */
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
     protected $fillable = [
-        'email', 'password', 'name_first', 'name_last', 'phone'
+        'email', 'password', 'name_first', 'name_last', 'phone', 'is_customer'
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeCustomers($query)
+    {
+        return $query->where('is_customer', 1);
+    }
 
     // TODO: add all rules and translate messages
     public static function rules(): array
@@ -67,6 +79,7 @@ class User extends Authenticatable
             'name_first' => ['required'],
             'name_last' => ['required'],
             'phone' => ['required'],
+            'is_customer' => ['required', 'boolean'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'min:6', 'confirmed']
         ];
