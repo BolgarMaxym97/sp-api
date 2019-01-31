@@ -23,7 +23,6 @@ class DataFillController extends Controller
             foreach ($requestData['values'] as $sensor_id => $value) {
                 $model = $requestData;
                 $keyValueDataArr = $this->buildDataArray($value);
-                $model['type'] = Arr::get($keyValueDataArr, '0', 'undefined');
                 $model['data'] = Arr::get($keyValueDataArr, '1', 0);
                 $model['sensor_id'] = $sensor_id;
                 $model = new Data($model);
