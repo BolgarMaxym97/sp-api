@@ -23,6 +23,9 @@ class DataFillController extends Controller
         try {
             foreach ($requestData['values'] as $sensor_id => $value) {
                 $sensor = Sensor::find($sensor_id);
+                if (!$sensor) {
+                    continue;
+                }
                 $model = new Data([
                     'data' => $value,
                     'user_id' => $sensor->user_id,
