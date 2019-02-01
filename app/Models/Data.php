@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property int $sensor_id
  * @property int $node_id
- * @property string $type
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Data whereCreatedAt($value)
@@ -31,5 +30,5 @@ use Illuminate\Database\Eloquent\Model;
 class Data extends Model
 {
     protected $table = 'data';
-    protected $fillable = ['data', 'user_id', 'sensor_id', 'node_id', 'type'];
+    protected $fillable = ['data', 'user_id', 'sensor_id', 'node_id'];
 }
