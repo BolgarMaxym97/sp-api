@@ -34,11 +34,11 @@ class StatisticController extends Controller
             'customers_count' => User::customers()->count(),
             'sensors_count' => Sensor::count(),
             'objects_count' => Node::count(),
-            'customersCount' => [
+            'customersCountChart' => [
                 'customersLabelsByDates' => array_keys($customersCountByDates),
                 'customersDataByDates' => array_values($customersCountByDates),
             ],
-            'nodesCount' => [
+            'nodesCountChart' => [
                 'nodesLabelsByDates' => array_keys($nodesCountByDates),
                 'nodesDataByDates' => array_values($nodesCountByDates),
             ],
