@@ -25,4 +25,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/customers', 'CustomersController@getCustomers')->name('customers.get');
     Route::get('/nodes', 'NodesController@getNodes')->name('nodes.get');
     Route::get('/sensors', 'SensorsController@getSensors')->name('sensors.get');
+    Route::get('/statistic', 'StatisticController@getStatistic')->name('statistic.get');
 });
