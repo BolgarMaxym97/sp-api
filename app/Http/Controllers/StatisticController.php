@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Charts;
 use App\Models\Node;
 use App\Models\Sensor;
 use App\Models\User;
@@ -34,14 +35,7 @@ class StatisticController extends Controller
             'customers_count' => User::customers()->count(),
             'sensors_count' => Sensor::count(),
             'objects_count' => Node::count(),
-            'customersCountChart' => [
-                'customersLabelsByDates' => array_keys($customersCountByDates),
-                'customersDataByDates' => array_values($customersCountByDates),
-            ],
-            'nodesCountChart' => [
-                'nodesLabelsByDates' => array_keys($nodesCountByDates),
-                'nodesDataByDates' => array_values($nodesCountByDates),
-            ],
+            'chartData' => Charts::collectDataForMultipleData($customersCountByDates, $nodesCountByDates)
         ];
     }
 }
