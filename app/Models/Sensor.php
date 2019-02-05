@@ -44,7 +44,17 @@ class Sensor extends Model
         return $this->hasOne(SensorType::class, 'id', 'type');
     }
 
-    public function getTypeNameAttribute() : string
+    public function node(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Node::class, 'id', 'node_id');
+    }
+
+    public function icon(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(SensorIcon::class, 'sensor_type', 'type');
+    }
+
+    public function getTypeNameAttribute(): string
     {
         return $this->sensorType()->value('name');
     }

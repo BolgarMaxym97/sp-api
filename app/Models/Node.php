@@ -35,7 +35,12 @@ class Node extends Model
         return $this->hasOne(NodeType::class, 'id', 'type');
     }
 
-    public function getTypeNameAttribute() : string
+    public function sensors(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Sensor::class, 'node_id', 'id');
+    }
+
+    public function getTypeNameAttribute(): string
     {
         return $this->nodeType()->value('name');
     }

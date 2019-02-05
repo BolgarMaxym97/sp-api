@@ -10,7 +10,7 @@ class NodesController extends Controller
 {
     public function getNodes(Request $request): Collection
     {
-        $nodes = Node::with('nodeType');
+        $nodes = Node::with(['nodeType', 'sensors.icon']);
         if ($request->user_id) {
             $nodes->where(['user_id' => $request->user_id]);
         }
