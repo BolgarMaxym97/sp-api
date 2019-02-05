@@ -13,4 +13,9 @@ class SensorIcon extends Model
     {
         return $this->hasOne(Sensor::class, 'type', 'sensor_type');
     }
+
+    public function sensorType(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(SensorType::class, 'id', 'sensor_type');
+    }
 }
