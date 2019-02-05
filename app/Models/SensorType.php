@@ -20,4 +20,9 @@ class SensorType extends Model
 {
     protected $table = 'sensor_types';
     protected $fillable = ['name'];
+
+    public function sensorIcon(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(SensorIcon::class, 'sensor_type', 'id');
+    }
 }

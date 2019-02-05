@@ -28,15 +28,25 @@ class Node extends Model
 {
     protected $table = 'nodes';
     protected $fillable = ['type', 'object_name', 'user_id'];
-    protected $appends = ['type_name'];
+    protected $appends = ['type_name', 'existing_types'];
 
     public function nodeType(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(NodeType::class, 'id', 'type');
     }
 
-    public function getTypeNameAttribute() : string
+    public function sensors(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Sensor::class, 'node_id', 'id');
+    }
+
+    public function getTypeNameAttribute(): string
     {
         return $this->nodeType()->value('name');
+    }
+
+    public function getExistingTypesAttribute(): array
+    {
+        return $this->sensors()->pluck('type')->toArray();
     }
 }
