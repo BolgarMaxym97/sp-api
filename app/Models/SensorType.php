@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 class SensorType extends Model
 {
     protected $table = 'sensor_types';
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'dimension'];
 
     public function sensorIcon(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
