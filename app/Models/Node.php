@@ -28,7 +28,7 @@ class Node extends Model
 {
     protected $table = 'nodes';
     protected $fillable = ['type', 'object_name', 'user_id'];
-    protected $appends = ['type_name'];
+    protected $appends = ['type_name', 'existing_types'];
 
     public function nodeType(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -43,5 +43,10 @@ class Node extends Model
     public function getTypeNameAttribute(): string
     {
         return $this->nodeType()->value('name');
+    }
+
+    public function getExistingTypesAttribute(): array
+    {
+        return $this->sensors()->pluck('type')->toArray();
     }
 }
