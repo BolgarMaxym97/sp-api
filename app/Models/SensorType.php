@@ -15,6 +15,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SensorType whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SensorType whereName($value)
  * @mixin \Eloquent
+ * @property string|null $dimension
+ * @property-read \App\Models\SensorIcon $sensorIcon
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SensorType whereDimension($value)
  */
 class SensorType extends Model
 {

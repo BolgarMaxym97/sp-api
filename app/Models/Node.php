@@ -23,12 +23,26 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Node whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Node whereUserId($value)
  * @mixin \Eloquent
+ * @property-read mixed $existing_types
+ * @property-read mixed $type_name
+ * @property-read \App\Models\NodeType $nodeType
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Sensor[] $sensors
  */
 class Node extends Model
 {
     protected $table = 'nodes';
     protected $fillable = ['type', 'object_name', 'user_id'];
     protected $appends = ['type_name', 'existing_types'];
+
+    // TODO: add all rules and translate messages
+    public static function rules(): array
+    {
+        return [
+            'user_id' => ['required', 'integer'],
+            'type' => ['required', 'integer'],
+            'object_name' => ['required', 'string', 'max:255'],
+        ];
+    }
 
     public function nodeType(): \Illuminate\Database\Eloquent\Relations\HasOne
     {

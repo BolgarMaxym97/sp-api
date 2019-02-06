@@ -27,6 +27,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sensor whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sensor whereUserId($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Data[] $data
+ * @property-read mixed $last_data
+ * @property-read \App\Models\SensorIcon $icon
+ * @property-read \App\Models\Node $node
  */
 class Sensor extends Model
 {
