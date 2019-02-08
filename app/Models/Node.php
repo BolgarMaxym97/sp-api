@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\Node
@@ -30,11 +31,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Node extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'nodes';
     protected $fillable = ['type', 'object_name', 'user_id'];
     protected $appends = ['type_name', 'existing_types'];
+    protected $dates = ['deleted_at'];
 
-    // TODO: add all rules and translate messages
     public static function rules(): array
     {
         return [
