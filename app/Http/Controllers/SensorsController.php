@@ -17,6 +17,6 @@ class SensorsController extends Controller
     public function create(Request $request): Model
     {
         $this->validate($request, Sensor::rules());
-        return Sensor::create($request->input())->load(['icon']);
+        return Sensor::create($request->input())->load(['icon', 'sensorType']);
     }
 }
