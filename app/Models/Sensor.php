@@ -43,6 +43,15 @@ class Sensor extends Model
     ];
     protected $appends = ['type_name', 'last_data'];
 
+    public static function rules(): array
+    {
+        return [
+            'user_id' => ['required', 'integer'],
+            'type' => ['required', 'integer'],
+            'node_id' => ['required', 'integer'],
+        ];
+    }
+
     public function sensorType(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(SensorType::class, 'id', 'type');
@@ -68,7 +77,7 @@ class Sensor extends Model
         return $this->sensorType()->value('name');
     }
 
-    public function getLastDataAttribute() : ?string
+    public function getLastDataAttribute(): ?string
     {
         return $this->data()->orderByDesc('created_at')->limit(1)->value('data');
     }
