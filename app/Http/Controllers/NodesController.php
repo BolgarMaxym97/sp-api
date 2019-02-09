@@ -31,7 +31,7 @@ class NodesController extends Controller
     public function create(Request $request): Model
     {
         $this->validate($request, Node::rules());
-        return Node::create($request->input());
+        return Node::create($request->input())->load(['nodeType', 'sensors.sensorType.sensorIcon']);
     }
 
     public function remove(Request $request, $id): array
