@@ -72,7 +72,6 @@ class User extends Authenticatable
         return $query->where('is_customer', 1);
     }
 
-    // TODO: add all rules and translate messages
     public static function rules(): array
     {
         return [
