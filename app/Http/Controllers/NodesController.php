@@ -19,7 +19,7 @@ class NodesController extends Controller
         }
         return [
             'nodes' => $nodes->get(),
-            'icons' => SensorIcon::all()
+            'icons' => SensorIcon::with(['sensorTypeRel'])->get()
         ];
     }
 

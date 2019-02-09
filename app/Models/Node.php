@@ -59,11 +59,11 @@ class Node extends Model
 
     public function getTypeNameAttribute(): string
     {
-        return $this->nodeType()->value('name');
+        return $this->nodeType->name;
     }
 
     public function getExistingTypesAttribute(): array
     {
-        return $this->sensors()->pluck('type')->toArray();
+        return $this->sensors->pluck('type')->toArray();
     }
 }

@@ -41,7 +41,7 @@ class Sensor extends Model
         'updated_at',
         'last_data_time'
     ];
-    protected $appends = ['type_name', 'last_data'];
+    protected $appends = ['type_name'];
 
     public static function rules(): array
     {
@@ -74,11 +74,6 @@ class Sensor extends Model
 
     public function getTypeNameAttribute(): string
     {
-        return $this->sensorType()->value('name');
-    }
-
-    public function getLastDataAttribute(): ?string
-    {
-        return $this->data()->orderByDesc('created_at')->limit(1)->value('data');
+        return $this->sensorType->name;
     }
 }
