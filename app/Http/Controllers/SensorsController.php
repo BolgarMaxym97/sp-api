@@ -19,8 +19,9 @@ class SensorsController extends Controller
 
     public function getSensor(Request $request, $id): array
     {
+        $date = $request->input('date');
         $sensor = Sensor::find($id);
-        $data = Data::where(['sensor_id' => $id])->get()
+        $data = Data::whereDate('created_at', Carbon::parse($date))->where(['sensor_id' => $id])->get()
             ->map(function ($dataItem) {
                 return [
                     'x' => Carbon::parse($dataItem->created_at)->format('d.m.Y H:i'),
