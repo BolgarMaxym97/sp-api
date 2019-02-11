@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::delete('/nodes/{id}', 'NodesController@remove')->name('nodes.remove');
     Route::get('/node-types', 'NodesController@getTypes')->name('nodes.getTypes');
     Route::get('/sensors', 'SensorsController@getSensors')->name('sensors.get');
+    Route::get('/sensors/{id}', 'SensorsController@getSensor')->name('sensors.view');
     Route::post('/sensors', 'SensorsController@create')->name('sensors.create');
     Route::get('/statistic', 'StatisticController@getStatistic')->name('statistic.get');
 });
