@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\Sensor
@@ -34,6 +35,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Sensor extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'sensors';
     protected $fillable = ['type', 'user_id', 'node_id', 'last_data_time'];
     protected $dates = [
