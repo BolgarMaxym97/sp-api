@@ -24,7 +24,7 @@ class SensorsController extends Controller
         $data = Data::whereDate('created_at', Carbon::parse($date))->where(['sensor_id' => $id])->get()
             ->map(function ($dataItem) {
                 return [
-                    'x' => Carbon::parse($dataItem->created_at)->format('d.m.Y H:i'),
+                    'x' => Carbon::parse($dataItem->created_at)->format('H:i'),
                     'y' => $dataItem->data,
                 ];
             })->toArray();
