@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Node;
 use App\Models\NodeType;
+use App\Models\Sensor;
 use App\Models\SensorIcon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -40,6 +41,10 @@ class NodesController extends Controller
         if (!$node) {
             return response()->json(['messages' => ['Объект не найден']], 404);
         }
-        return ['success' => $node->delete()];
+        $deleted = $node->delete();
+        if ($deleted) {
+            Sensor::where(['node_id' => $id])->delete();
+        }
+        return ['success' => $deleted];
     }
 }
