@@ -25,10 +25,12 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/customers', 'CustomersController@getCustomers')->name('customers.get');
     Route::get('/nodes', 'NodesController@getNodes')->name('nodes.get');
     Route::post('/nodes', 'NodesController@create')->name('nodes.create');
+    Route::put('/nodes/{id}', 'NodesController@update')->name('nodes.create');
     Route::delete('/nodes/{id}', 'NodesController@remove')->name('nodes.remove');
     Route::get('/node-types', 'NodesController@getTypes')->name('nodes.getTypes');
     Route::get('/sensors', 'SensorsController@getSensors')->name('sensors.get');
     Route::get('/sensors/{id}', 'SensorsController@getSensor')->name('sensors.view');
     Route::post('/sensors', 'SensorsController@create')->name('sensors.create');
     Route::get('/statistic', 'StatisticController@getStatistic')->name('statistic.get');
+    Route::post('/settings', 'SettingsController@createOrUpdate')->name('settings.createOrUpdate');
 });

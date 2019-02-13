@@ -12,14 +12,27 @@ use Illuminate\Support\Arr;
 
 class SensorsController extends Controller
 {
-    public function getSensors(): Collection
+    /**
+     * @param Request $request
+     * @return Collection
+     */
+    public function getSensors(Request $request): Collection
     {
-        return Sensor::with('sensorType')->get();
+        return Sensor::with(['sensorType', 'settings'])
+            ->when($request->node_id, function ($query) use ($request) {
+                return $query->where('node_id', $request->node_id);
+            })
+            ->get();
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return array
+     */
     public function getSensor(Request $request, $id): array
     {
-        $date = $request->input('date');
+        $date = $request->date;
         $sensor = Sensor::find($id);
         $data = Data::whereDate('created_at', Carbon::parse($date))->where(['sensor_id' => $id])->get()
             ->map(function ($dataItem) {

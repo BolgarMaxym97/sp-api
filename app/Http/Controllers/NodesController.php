@@ -14,12 +14,12 @@ class NodesController extends Controller
 {
     public function getNodes(Request $request): array
     {
-        $nodes = Node::with(['nodeType', 'sensors.sensorType.sensorIcon']);
-        if ($request->user_id) {
-            $nodes->where(['user_id' => $request->user_id]);
-        }
         return [
-            'nodes' => $nodes->get(),
+            'nodes' => Node::with(['nodeType', 'sensors.sensorType.sensorIcon'])
+                ->when($request->user_id, function ($query) use ($request) {
+                    return $query->where('user_id', $request->user_id);
+                })
+                ->get(),
             'icons' => SensorIcon::with(['sensorTypeRel'])->get()
         ];
     }
@@ -33,6 +33,20 @@ class NodesController extends Controller
     {
         $this->validate($request, Node::rules());
         return Node::create($request->input())->load(['nodeType', 'sensors.sensorType.sensorIcon']);
+    }
+
+    public function update(Request $request, $id): array
+    {
+        $this->validate($request, Node::rules());
+        $node = Node::find($id);
+        if (!$node) {
+            return response()->json(['messages' => ['Объект не найден']], 404);
+        }
+        $updated = $node->update($request->input());
+        return [
+            'success' => $updated,
+            'node' => $node->load(['nodeType', 'sensors.sensorType.sensorIcon'])
+        ];
     }
 
     public function remove(Request $request, $id): array

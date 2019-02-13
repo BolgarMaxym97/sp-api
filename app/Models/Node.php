@@ -28,6 +28,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read mixed $type_name
  * @property-read \App\Models\NodeType $nodeType
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Sensor[] $sensors
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Node onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Node whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Node withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Node withoutTrashed()
  */
 class Node extends Model
 {
@@ -41,7 +48,7 @@ class Node extends Model
     public static function rules(): array
     {
         return [
-            'user_id' => ['required', 'integer'],
+            'user_id' => ['sometimes', 'required', 'integer'],
             'type' => ['required', 'integer'],
             'object_name' => ['required', 'string', 'max:255'],
         ];
