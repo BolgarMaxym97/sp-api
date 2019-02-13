@@ -75,6 +75,11 @@ class Sensor extends Model
         return $this->hasMany(Data::class, 'sensor_id', 'id');
     }
 
+    public function settings(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(SensorSettings::class, 'sensor_id', 'id');
+    }
+
     public function getTypeNameAttribute(): string
     {
         return $this->sensorType->name;
