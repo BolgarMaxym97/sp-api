@@ -34,7 +34,7 @@ class StatisticController extends Controller
         return [
             'customers_count' => User::customers()->count(),
             'sensors_count' => Sensor::count(),
-            'objects_count' => Node::count(),
+            'nodes_count' => Node::count(),
             'chartData' => Charts::collectDataForMultipleData($customersCountByDates, $nodesCountByDates)
         ];
     }
