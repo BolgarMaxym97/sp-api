@@ -32,6 +32,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read mixed $last_data
  * @property-read \App\Models\SensorIcon $icon
  * @property-read \App\Models\Node $node
+ * @property string|null $deleted_at
+ * @property-read \App\Models\SensorSettings $settings
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Sensor onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sensor whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Sensor withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Sensor withoutTrashed()
  */
 class Sensor extends Model
 {
