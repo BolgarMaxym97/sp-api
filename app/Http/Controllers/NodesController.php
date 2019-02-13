@@ -35,6 +35,20 @@ class NodesController extends Controller
         return Node::create($request->input())->load(['nodeType', 'sensors.sensorType.sensorIcon']);
     }
 
+    public function update(Request $request, $id): array
+    {
+        $this->validate($request, Node::rules());
+        $node = Node::find($id);
+        if (!$node) {
+            return response()->json(['messages' => ['Объект не найден']], 404);
+        }
+        $updated = $node->update($request->input());
+        return [
+            'success' => $updated,
+            'node' => $node->load(['nodeType', 'sensors.sensorType.sensorIcon'])
+        ];
+    }
+
     public function remove(Request $request, $id): array
     {
         $node = Node::find($id);

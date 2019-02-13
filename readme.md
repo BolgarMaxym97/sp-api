@@ -37,3 +37,8 @@ DEPLOYMENT
     php artisan ide-helper:generate
     php artisan ide-helper:models
     ~~~
+
+   Documentation:
+    ~~~
+    https://app.swaggerhub.com/apis-docs/BolgarMax/sp-api/1.0.0-oas3
+    ~~~

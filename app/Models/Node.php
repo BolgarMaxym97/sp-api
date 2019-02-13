@@ -41,7 +41,7 @@ class Node extends Model
     public static function rules(): array
     {
         return [
-            'user_id' => ['required', 'integer'],
+            'user_id' => ['sometimes', 'required', 'integer'],
             'type' => ['required', 'integer'],
             'object_name' => ['required', 'string', 'max:255'],
         ];
