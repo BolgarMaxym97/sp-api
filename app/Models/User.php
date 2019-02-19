@@ -58,10 +58,10 @@ class User extends Authenticatable
     protected $fillable = [
         'email', 'password', 'name_first', 'name_last', 'phone', 'is_customer'
     ];
-
     protected $hidden = [
         'password', 'remember_token',
     ];
+    protected $appends = ['full_name'];
 
     /**
      * @param $query
@@ -70,6 +70,11 @@ class User extends Authenticatable
     public function scopeCustomers($query)
     {
         return $query->where('is_customer', 1);
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return $this->name_first . ' ' . $this->name_last;
     }
 
     public static function rules(): array
