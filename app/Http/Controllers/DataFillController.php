@@ -12,7 +12,7 @@ class DataFillController extends Controller
 {
 
     /**
-     *  Add other sensors
+     *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
