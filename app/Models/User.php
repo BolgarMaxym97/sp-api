@@ -50,18 +50,21 @@ use Laravel\Passport\HasApiTokens;
  * @property int $is_customer
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User customers()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereIsCustomer($value)
+ * @property string $address
+ * @property-read mixed $full_name
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAddress($value)
  */
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
 
     protected $fillable = [
-        'email', 'password', 'name_first', 'name_last', 'phone', 'is_customer'
+        'email', 'password', 'name_first', 'name_last', 'phone', 'is_customer', 'address'
     ];
-
     protected $hidden = [
         'password', 'remember_token',
     ];
+    protected $appends = ['full_name'];
 
     /**
      * @param $query
@@ -72,12 +75,18 @@ class User extends Authenticatable
         return $query->where('is_customer', 1);
     }
 
+    public function getFullNameAttribute(): string
+    {
+        return $this->name_first . ' ' . $this->name_last;
+    }
+
     public static function rules(): array
     {
         return [
             'name_first' => ['required'],
             'name_last' => ['required'],
             'phone' => ['required'],
+            'address' => ['required'],
             'is_customer' => ['required', 'boolean'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'min:6', 'confirmed']
