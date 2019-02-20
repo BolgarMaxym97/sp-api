@@ -64,7 +64,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    protected $appends = ['full_name'];
+    protected $appends = ['full_name', 'nodes_count'];
 
     /**
      * @param $query
@@ -73,6 +73,16 @@ class User extends Authenticatable
     public function scopeCustomers($query)
     {
         return $query->where('is_customer', 1);
+    }
+
+    public function nodes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Node::class, 'user_id', 'id');
+    }
+
+    public function getNodesCountAttribute(): string
+    {
+        return count($this->nodes);
     }
 
     public function getFullNameAttribute(): string
