@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SensorSettings;
 use Illuminate\Http\Request;
 
-class SettingsController extends Controller
+class SensorSettingsController extends Controller
 {
     public function createOrUpdate(Request $request): array
     {

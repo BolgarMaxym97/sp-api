@@ -61,4 +61,10 @@ class NodesController extends Controller
         }
         return ['success' => $deleted];
     }
+
+
+    public function getLastData(Request $request, $id): Collection
+    {
+        return Sensor::with(['lastData', 'sensorType'])->where('node_id', $id)->get();
+    }
 }

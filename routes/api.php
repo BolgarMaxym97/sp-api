@@ -32,5 +32,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/sensors/{id}', 'SensorsController@getSensor')->name('sensors.view');
     Route::post('/sensors', 'SensorsController@create')->name('sensors.create');
     Route::get('/statistic', 'StatisticController@getStatistic')->name('statistic.get');
-    Route::post('/settings', 'SettingsController@createOrUpdate')->name('settings.createOrUpdate');
+    Route::post('/sensor-settings', 'SensorSettingsController@createOrUpdate')->name('settings.createOrUpdate');
+    Route::get('/last-data/{id}', 'NodesController@getLastData')->name('nodes.lastData');
 });
