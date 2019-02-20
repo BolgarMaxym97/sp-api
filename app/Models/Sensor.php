@@ -83,6 +83,11 @@ class Sensor extends Model
         return $this->hasMany(Data::class, 'sensor_id', 'id');
     }
 
+    public function lastData(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Data::class, 'sensor_id', 'id')->latest();
+    }
+
     public function settings(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(SensorSettings::class, 'sensor_id', 'id');

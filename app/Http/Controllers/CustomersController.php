@@ -9,6 +9,6 @@ class CustomersController extends Controller
 {
     public function getCustomers() : Collection
     {
-        return User::customers()->get();
+        return User::customers()->with(['nodes'])->get();
     }
 }
