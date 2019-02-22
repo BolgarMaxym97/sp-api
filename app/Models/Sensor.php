@@ -40,6 +40,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sensor whereDeletedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Sensor withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Sensor withoutTrashed()
+ * @property-read \App\Models\Data $lastData
  */
 class Sensor extends Model
 {

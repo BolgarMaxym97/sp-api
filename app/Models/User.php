@@ -53,6 +53,8 @@ use Laravel\Passport\HasApiTokens;
  * @property string $address
  * @property-read mixed $full_name
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAddress($value)
+ * @property-read mixed $nodes_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Node[] $nodes
  */
 class User extends Authenticatable
 {
