@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Node whereDeletedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Node withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Node withoutTrashed()
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Data[] $data
  */
 class Node extends Model
 {
@@ -62,6 +63,11 @@ class Node extends Model
     public function sensors(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Sensor::class, 'node_id', 'id');
+    }
+
+    public function data(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Data::class, 'node_id', 'id');
     }
 
     public function getTypeNameAttribute(): string

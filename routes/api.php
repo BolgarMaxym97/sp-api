@@ -24,6 +24,7 @@ Route::post('/data-fill', 'DataFillController@fill')->name('data.fill');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/customers', 'CustomersController@getCustomers')->name('customers.get');
     Route::get('/nodes', 'NodesController@getNodes')->name('nodes.get');
+    Route::get('/nodes-statistic/{id}', 'NodesController@getStatistic')->name('nodes.statistic');
     Route::post('/nodes', 'NodesController@create')->name('nodes.create');
     Route::put('/nodes/{id}', 'NodesController@update')->name('nodes.create');
     Route::delete('/nodes/{id}', 'NodesController@remove')->name('nodes.remove');
