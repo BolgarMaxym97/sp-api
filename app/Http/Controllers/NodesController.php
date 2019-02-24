@@ -65,7 +65,7 @@ class NodesController extends Controller
 
     public function getLastData(Request $request, $id): Collection
     {
-        return Sensor::with(['lastData', 'sensorType', 'nodeType'])->where('node_id', $id)->get();
+        return Sensor::with(['lastData', 'sensorType', 'node.nodeType'])->where('node_id', $id)->get();
     }
 
     public function getStatistic(Request $request, $id): array
