@@ -22,7 +22,7 @@ class AuthController extends Controller
         return response()->json([
             'success' => (bool)$user,
             'user' => $user
-        ]);
+        ], 201);
     }
 
     protected function login(Request $request): JsonResponse

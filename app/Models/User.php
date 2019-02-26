@@ -97,7 +97,7 @@ class User extends Authenticatable
         return [
             'name_first' => ['required'],
             'name_last' => ['required'],
-            'phone' => ['required'],
+            'phone' => ['required', 'numeric'],
             'address' => ['required'],
             'is_customer' => ['required', 'boolean'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
