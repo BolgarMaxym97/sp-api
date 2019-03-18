@@ -36,10 +36,10 @@ class StatisticController extends Controller
             'sensors_count' => Sensor::count(),
             'nodes_count' => Node::count(),
             'customersCountByDates' => array_map(function ($customer, $key) {
-                return [$key, $customer];
+                return [$key * 1000, $customer];
             }, $customersCountByDates, array_keys($customersCountByDates)),
             'nodesCountByDates' => array_map(function ($node, $key) {
-                return [$key, $node];
+                return [$key * 1000, $node];
             }, $nodesCountByDates, array_keys($nodesCountByDates))
         ];
     }
