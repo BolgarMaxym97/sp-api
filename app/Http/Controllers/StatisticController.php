@@ -15,7 +15,7 @@ class StatisticController extends Controller
         $customersCountByDates = User::customers()
             ->get()
             ->groupBy(function ($val) {
-                return Carbon::parse($val->created_at)->format('d.m.Y');
+                return strtotime(Carbon::parse($val->created_at)->format('d.m.Y'));
             })
             ->map(function ($customers) {
                 return collect($customers)->count();
@@ -24,7 +24,7 @@ class StatisticController extends Controller
 
         $nodesCountByDates = Node::get()
             ->groupBy(function ($val) {
-                return Carbon::parse($val->created_at)->format('d.m.Y');
+                return strtotime(Carbon::parse($val->created_at)->format('d.m.Y'));
             })
             ->map(function ($customers) {
                 return collect($customers)->count();
@@ -35,7 +35,12 @@ class StatisticController extends Controller
             'customers_count' => User::customers()->count(),
             'sensors_count' => Sensor::count(),
             'nodes_count' => Node::count(),
-            'chartData' => Charts::collectDataForMultipleData($customersCountByDates, $nodesCountByDates)
+            'customersCountByDates' => array_map(function ($customer, $key) {
+                return [$key * 1000, $customer];
+            }, $customersCountByDates, array_keys($customersCountByDates)),
+            'nodesCountByDates' => array_map(function ($node, $key) {
+                return [$key * 1000, $node];
+            }, $nodesCountByDates, array_keys($nodesCountByDates))
         ];
     }
 }
