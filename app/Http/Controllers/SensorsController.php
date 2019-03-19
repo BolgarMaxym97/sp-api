@@ -34,18 +34,15 @@ class SensorsController extends Controller
     {
         $date = $request->date;
         $sensor = Sensor::with(['sensorType', 'settings'])->find($id);
-        $data = Data::whereDate('created_at', Carbon::parse($date))->where(['sensor_id' => $id])->get()
+        $data = Data::whereDate('created_at', Carbon::parse($date))->where(['sensor_id' => $id])->orderBy('created_at')->get()
             ->map(function ($dataItem) {
-                return [
-                    'x' => Carbon::parse($dataItem->created_at)->format('H:i'),
-                    'y' => $dataItem->data,
+                return [Carbon::parse($dataItem->created_at)->getTimestamp() * 1000, $dataItem->data,
                 ];
             })->toArray();
 
         return [
             'sensor' => $sensor,
-            'data' => Arr::pluck($data, 'y'),
-            'labels' => Arr::pluck($data, 'x')
+            'data' => $data,
         ];
     }
 
