@@ -21,11 +21,17 @@ class DataFillController extends Controller
     {
         $requestData = $request->all();
         $created = 0;
+        $lastData = Data::latest('created_at')->first();
+        if (\Carbon\Carbon::now()->diffInMinutes($lastData->created_at) < 9) {
+            return response()->json([
+                'success' => true,
+                'created' => 0
+            ]);
+        }
         try {
             foreach ($requestData['values'] as $sensor_id => $value) {
                 $sensor = Sensor::find($sensor_id);
-                $lastData = Data::latest('created_at')->first();
-                if (!$sensor || \Carbon\Carbon::now()->diffInMinutes($lastData->created_at) < 9) {
+                if (!$sensor) {
                     continue;
                 }
                 $model = new Data([
