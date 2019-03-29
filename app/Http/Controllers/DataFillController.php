@@ -24,7 +24,8 @@ class DataFillController extends Controller
         try {
             foreach ($requestData['values'] as $sensor_id => $value) {
                 $sensor = Sensor::find($sensor_id);
-                if (!$sensor) {
+                $lastData = Data::latest('created_at')->first();
+                if (!$sensor || \Carbon\Carbon::now()->diffInMinutes($lastData->created_at) < 9) {
                     continue;
                 }
                 $model = new Data([
