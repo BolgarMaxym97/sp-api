@@ -15,7 +15,7 @@ class NodesController extends Controller
     public function getNodes(Request $request): array
     {
         return [
-            'nodes' => Node::with(['nodeType', 'sensors.sensorType.sensorIcon'])
+            'nodes' => Node::with(['nodeType', 'sensors.sensorType.sensorIcon', 'sensors.lastData'])
                 ->when($request->user_id, function ($query) use ($request) {
                     return $query->where('user_id', $request->user_id);
                 })
