@@ -77,6 +77,11 @@ class User extends Authenticatable
         return $query->where('is_customer', 1);
     }
 
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
     public function nodes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Node::class, 'user_id', 'id');
@@ -90,18 +95,5 @@ class User extends Authenticatable
     public function getFullNameAttribute(): string
     {
         return $this->name_first . ' ' . $this->name_last;
-    }
-
-    public static function rules(): array
-    {
-        return [
-            'name_first' => ['required'],
-            'name_last' => ['required'],
-            'phone' => ['required', 'numeric'],
-            'address' => ['required'],
-            'is_customer' => ['required', 'boolean'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'min:6', 'confirmed']
-        ];
     }
 }
