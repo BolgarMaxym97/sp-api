@@ -12,13 +12,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AuthController extends Controller
 {
-    protected function create(Request $request): JsonResponse
+    protected function create(\App\Http\Requests\User $request): JsonResponse
     {
-        $this->validate($request, User::rules());
-        $data = $request->all();
-        $data['password'] = Hash::make($data['password']);
-
-        $user = User::create($data);
+        $user = User::create($request->validated());
         return response()->json([
             'success' => (bool)$user,
             'user' => $user
