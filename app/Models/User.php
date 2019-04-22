@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -59,7 +60,7 @@ use Laravel\Passport\HasApiTokens;
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'email', 'password', 'name_first', 'name_last', 'phone', 'is_customer', 'address'
@@ -68,7 +69,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     protected $appends = ['full_name', 'nodes_count'];
-    protected $softDelete = true;
 
     /**
      * @param $query
