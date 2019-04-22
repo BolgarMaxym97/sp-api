@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -55,10 +56,11 @@ use Laravel\Passport\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAddress($value)
  * @property-read mixed $nodes_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Node[] $nodes
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User admins()
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'email', 'password', 'name_first', 'name_last', 'phone', 'is_customer', 'address'
@@ -75,6 +77,15 @@ class User extends Authenticatable
     public function scopeCustomers($query)
     {
         return $query->where('is_customer', 1);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeAdmins($query)
+    {
+        return $query->where('is_customer', 0);
     }
 
     public function setPasswordAttribute($password)
