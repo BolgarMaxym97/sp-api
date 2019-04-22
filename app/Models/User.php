@@ -55,6 +55,7 @@ use Laravel\Passport\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAddress($value)
  * @property-read mixed $nodes_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Node[] $nodes
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User admins()
  */
 class User extends Authenticatable
 {
@@ -75,6 +76,15 @@ class User extends Authenticatable
     public function scopeCustomers($query)
     {
         return $query->where('is_customer', 1);
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeAdmins($query)
+    {
+        return $query->where('is_customer', 0);
     }
 
     public function setPasswordAttribute($password)

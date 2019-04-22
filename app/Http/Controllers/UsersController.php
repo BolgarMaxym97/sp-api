@@ -24,4 +24,9 @@ class UsersController extends Controller
     {
         return User::customers()->with(['nodes'])->get();
     }
+
+    public function getAdmins() : Collection
+    {
+        return User::admins()->get();
+    }
 }
