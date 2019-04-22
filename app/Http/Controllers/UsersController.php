@@ -20,12 +20,29 @@ class UsersController extends Controller
         ]);
     }
 
-    public function getCustomers() : Collection
+    /**
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function remove(Request $request, $id): JsonResponse
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return response()->json(['messages' => ['Пользователь не найден']], 404);
+        }
+        return response()->json([
+            'success' => $user->delete(),
+        ]);
+    }
+
+    public function getCustomers(): Collection
     {
         return User::customers()->with(['nodes'])->get();
     }
 
-    public function getAdmins() : Collection
+    public function getAdmins(): Collection
     {
         return User::admins()->get();
     }

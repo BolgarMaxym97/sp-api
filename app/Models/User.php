@@ -68,6 +68,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     protected $appends = ['full_name', 'nodes_count'];
+    protected $softDelete = true;
 
     /**
      * @param $query
