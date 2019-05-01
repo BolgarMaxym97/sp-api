@@ -24,6 +24,11 @@ class SensorType extends Model
     protected $table = 'sensor_types';
     protected $fillable = ['name', 'dimension'];
 
+    const TYPE_TEMPERATURE = 1;
+    const TYPE_HUMIDITY = 2;
+    const TYPE_GERCON_1 = 3;
+    const TYPE_GERCON_2 = 4;
+
     public function sensorIcon(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(SensorIcon::class, 'sensor_type', 'id');
