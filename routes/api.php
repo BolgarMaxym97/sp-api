@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/nodes', 'NodesController@getNodes')->name('nodes.get');
     Route::get('/nodes-statistic/{id}', 'NodesController@getStatistic')->name('nodes.statistic');
     Route::post('/nodes', 'NodesController@create')->name('nodes.create');
+    Route::get('/nodes/generate-firmware/{id}', 'NodesController@generateFirmware')->name('nodes.generateFirmware');
     Route::put('/nodes/{id}', 'NodesController@update')->name('nodes.create');
     Route::delete('/nodes/{id}', 'NodesController@remove')->name('nodes.remove');
     Route::get('/node-types', 'NodesController@getTypes')->name('nodes.getTypes');

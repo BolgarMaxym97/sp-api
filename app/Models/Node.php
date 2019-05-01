@@ -46,6 +46,12 @@ class Node extends Model
     protected $appends = ['type_name', 'existing_types'];
     protected $dates = ['deleted_at'];
 
+    const FIRMWARE_NAMES_BY_SENSORS_TYPE = [
+        SensorType::TYPE_TEMPERATURE => '{sensor-temperature-id}',
+        SensorType::TYPE_HUMIDITY => '{sensor-humanity-id}',
+        SensorType::TYPE_GERCON_1 => '{sensor-gercon1-id}',
+    ];
+
     public static function rules(): array
     {
         return [

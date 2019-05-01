@@ -6,6 +6,7 @@ use App\Models\Node;
 use App\Models\NodeType;
 use App\Models\Sensor;
 use App\Models\SensorIcon;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
@@ -77,11 +78,30 @@ class NodesController extends Controller
             'node_type' => $node->type_name,
             'sensors_count' => $node->sensors->count(),
             'sensors_types' => $node->sensors->map(function ($sensor) {
-               return $sensor->type_name;
+                return $sensor->type_name;
             }),
             'created_at' => $node->created_at->format('d.m.Y H:i'),
             'last_data_time' => $lastData ? $lastData->created_at->format('d.m.Y H:i') : '',
             'data_count' => $node->data->count()
+        ];
+    }
+
+    public function generateFirmware(Request $request, $id)
+    {
+        $node = Node::with(['sensors'])->find($id);
+        try {
+            $wifiFile = \File::get(public_path(DIRECTORY_SEPARATOR . 'firmwares' . DIRECTORY_SEPARATOR . 'wi-fi.ino'));
+            $sensorFile = \File::get(public_path(DIRECTORY_SEPARATOR . 'firmwares' . DIRECTORY_SEPARATOR . 'sensor.ino'));
+        } catch (FileNotFoundException $e) {
+            return response()->json(['messages' => ['Файл не найден']], 404);
+        }
+
+        foreach ($node->sensors as $sensor) {
+            $wifiFile = str_replace(Node::FIRMWARE_NAMES_BY_SENSORS_TYPE[$sensor->type], $sensor->id, $wifiFile);
+        }
+        return [
+            'wi-fi.ino' => $wifiFile,
+            'sensor.ino' => $sensorFile
         ];
     }
 }
