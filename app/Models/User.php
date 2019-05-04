@@ -57,6 +57,13 @@ use Laravel\Passport\HasApiTokens;
  * @property-read mixed $nodes_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Node[] $nodes
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User admins()
+ * @property string|null $deleted_at
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User withoutTrashed()
  */
 class User extends Authenticatable
 {
