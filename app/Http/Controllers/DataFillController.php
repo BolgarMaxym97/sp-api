@@ -40,7 +40,7 @@ class DataFillController extends Controller
                     'sensor_id' => $sensor_id,
                     'node_id' => $sensor->node_id
                 ]);
-                $saved = $model->save();
+                $saved = $model->check_data ? $model->save() : false;
                 if ($saved) {
                     $created++;
                 }
