@@ -101,7 +101,7 @@ class Sensor extends Model
 
     public function getAlertsAttribute(): array
     {
-        $lastDataValue = $this->last_data ? $this->last_data->data : false;
+        $lastDataValue = $this->lastData ? $this->lastData->data : false;
         $settings = $this->settings;
         if (!$lastDataValue || !$settings) {
             return [];
