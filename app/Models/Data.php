@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Data whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Data whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Data whereUserId($value)
- * @property-read boolean $check_data
+ * @property-read boolean $validate_data
  */
 class Data extends Model
 {
@@ -36,7 +36,7 @@ class Data extends Model
     const MAX_NORMAL_VALUE = 98;
     const MIN_NORMAL_VALUE = -40;
 
-    public function getCheckDataAttribute(): bool
+    public function getValidateDataAttribute(): bool
     {
         return (float)$this->data > self::MIN_NORMAL_VALUE && (float)$this->data < self::MAX_NORMAL_VALUE;
     }

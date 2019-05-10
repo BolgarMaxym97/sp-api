@@ -53,7 +53,7 @@ class Sensor extends Model
         'updated_at',
         'last_data_time'
     ];
-    protected $appends = ['type_name'];
+    protected $appends = ['type_name', 'alerts'];
 
     public static function rules(): array
     {
@@ -97,5 +97,20 @@ class Sensor extends Model
     public function getTypeNameAttribute(): string
     {
         return $this->sensorType->name;
+    }
+
+    public function getAlertsAttribute(): array
+    {
+        $lastDataValue = $this->lastData ? $this->lastData->data : false;
+        $settings = $this->settings;
+        if (!$lastDataValue || !$settings) {
+            return [];
+        }
+        return [
+            $this->type_name => [
+                'isAlertMin' => $lastDataValue < $settings->min_normal_value,
+                'isAlertMax' => $lastDataValue > $settings->max_normal_value
+            ]
+        ];
     }
 }
