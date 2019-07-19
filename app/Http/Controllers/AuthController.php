@@ -12,13 +12,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AuthController extends Controller
 {
-    // TODO: remove after presentation
-    const TEMPORARY_USER_DATA_FOR_DEMO = [
-        'email' => 'admin@gmail.com',
-        'password' => '123456',
-        'is_customer' => 0,
-    ];
-
     protected function create(\App\Http\Requests\User $request): JsonResponse
     {
         $user = User::create($request->validated());
@@ -30,8 +23,7 @@ class AuthController extends Controller
 
     protected function login(Request $request): JsonResponse
     {
-        // TODO: change back after presentation
-        $authed = Auth::attempt(self::TEMPORARY_USER_DATA_FOR_DEMO);
+        $authed = Auth::attempt($request->all());
         if (!$authed) {
             return response()->json(['messages' => ['Пользователь не найден']], 404);
         }
